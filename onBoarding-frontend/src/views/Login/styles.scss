@@ -1,0 +1,17 @@
+@import "../../scss/";
+
+.login {
+  align-items: center;
+  background: linear-gradient(
+    to top,
+    theme-color("primary"),
+    theme-color("darkgray")
+  );
+  color: theme-color("white");
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
