@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-import { CLIENT_ID } from "../../boardgameatlas.config";
 import { Button, Row } from "react-bootstrap";
 import "./styles.scss";
 
@@ -9,6 +8,8 @@ interface LoginProps {
 
 const Login: FunctionComponent<LoginProps> = (props) => {
   const { handleLogin } = props;
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 
   const handleConnectClick = (e): void => {
     function generateUrlWithState() {
@@ -16,7 +17,7 @@ const Login: FunctionComponent<LoginProps> = (props) => {
       const state = Math.random()
         .toString(36)
         .substring(7);
-      return `https://api.boardgameatlas.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&state=${state}&redirect_uri=http://localhost:8080/oauth`;
+      return `https://api.boardgameatlas.com/oauth/authorize?response_type=code&client_id=${CLIENT_ID}&state=${state}&redirect_uri=${REDIRECT_URI}`;
     }
     window.location.href = generateUrlWithState();
   };

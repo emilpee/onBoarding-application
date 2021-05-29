@@ -1,6 +1,5 @@
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import axios from 'axios'
-import { CLIENT_ID } from '../../boardgameatlas.config'
 import { GameObject } from '../../interfaces'
 import { CardDeck, Container, Spinner } from 'react-bootstrap'
 import { GameCard } from '../../components'
@@ -8,6 +7,7 @@ import './styles.scss'
 
 const Games: FunctionComponent = () => {
   const [gamesData, setgamesData] = useState<GameObject[]>([])
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 
   useEffect(() => {
     axios
@@ -17,7 +17,7 @@ const Games: FunctionComponent = () => {
       .then(({ data }) => {
         setgamesData(data.games)
       })
-  }, [])
+  }, [CLIENT_ID])
 
   return (
     <Container className="container" fluid>
