@@ -5,7 +5,7 @@ const oauth = require("./routes/oauth");
 const user = require("./routes/user");
 const users = require("./routes/users");
 const collection = require("./routes/collection");
-const mongo = require("./api/mongo");
+const password = process.env.MONGODB_PASSWORD;
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -25,7 +25,7 @@ app
   .delete(collection.delete);
 
 mongoose.set("useCreateIndex", true);
-const db = `mongodb+srv://admin-emil:${mongo.password}@userdata-43fxt.mongodb.net/onBoardingCollection?retryWrites=true&w=majority`;
+const db = `mongodb+srv://admin-emil:${password}@userdata-43fxt.mongodb.net/onBoardingCollection?retryWrites=true&w=majority`;
 mongoose
   .connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => {

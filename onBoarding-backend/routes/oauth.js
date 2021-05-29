@@ -1,4 +1,3 @@
-const { client_id, client_secret } = require("../api/boardgameatlas");
 const axios = require("axios");
 const qs = require("qs");
 const User = require("../schemas/user");
@@ -6,12 +5,12 @@ const User = require("../schemas/user");
 module.exports.get = (req, res) => {
   const requestToken = req.query.code;
   var loginUser = null;
-
+  
   let data = {
-    client_id,
-    client_secret,
+    client_id: process.env.CLIENT_ID,
+    client_secret: process.env.CLIENT_SECRET,
     code: requestToken,
-    redirect_uri: `http://localhost:8080/oauth`,
+    redirect_uri: process.env.REDIRECT_URI || 'http://localhost:8080/oauth',
     grant_type: "authorization_code",
   };
 
@@ -24,9 +23,10 @@ module.exports.get = (req, res) => {
   })
     .then((response) => {
       const accessToken = response.data.access_token;
+
       axios
         .get(
-          `https://api.boardgameatlas.com/api/user/data?client_id=${client_id}`,
+          `https://api.boardgameatlas.com/api/user/data?client_id=${process.env.CLIENT_ID}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
